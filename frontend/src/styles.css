@@ -1,0 +1,1630 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --font-sans: var(--family-sans);
+  --font-display: var(--family-display);
+  --font-funky: var(--family-funky);
+}
+
+/* ------------------------------------------------------------------ *
+ * Tokens
+ * ------------------------------------------------------------------ */
+
+:root {
+  /* warm paper palette */
+  --background: #f5f0e3;
+  --foreground: #171612;
+  --card: #faf7ed;
+  --card-foreground: #171612;
+  --primary: #171612;
+  --primary-foreground: #faf7ed;
+  --secondary: #efe8d5;
+  --secondary-foreground: #171612;
+  --muted: #efe8d5;
+  --muted-foreground: #77736a;
+  --accent: #e9e1ce;
+  --accent-foreground: #171612;
+  --destructive: #a8291a;
+  --border: #d8d1c1;
+  --input: #d8d1c1;
+  --ring: #171612;
+  --popover: #faf7ed;
+  --popover-foreground: #171612;
+  --radius: 0.75rem;
+
+  /* named surfaces */
+  --paper: #f5f0e3;
+  --cream: #efe8d5;
+  --card-cream: #faf7ed;
+  --ink: #171612;
+  --muted-ink: #77736a;
+  --line: #d8d1c1;
+  --warm-gray: #9a9589;
+  --ink-soft: #2c2a23;
+  --shade: #ebe4d1;
+
+  /* accents — one dominant per screen */
+  --accent-red: #ef3b2d;
+  --accent-orange: #e87845;
+  --accent-mustard: #d6b83e;
+  --accent-green: #7c9a70;
+  --accent-blue: #6d8fa3;
+  --accent-plum: #795477;
+
+  /* type — display for headlines, sans for reading, brand face for the mark */
+  --family-display: "Playfair Display", "Iowan Old Style", Georgia, serif;
+  --family-sans: "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --family-funky: "Bungee", "Arial Black", "Helvetica Neue", sans-serif;
+  --step-display: clamp(2.5rem, 1.5rem + 4.2vw, 5.25rem);
+  --step-title: clamp(2.125rem, 1.5rem + 2.6vw, 3.75rem);
+  --step-subtitle: clamp(1.5rem, 1.2rem + 1.2vw, 2.125rem);
+  --step-lead: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+  --step-body: clamp(1rem, 0.97rem + 0.15vw, 1.0625rem);
+  --step-small: 0.875rem;
+  --step-label: 0.6875rem;
+
+  /* space + shape */
+  --gutter: clamp(20px, 5.5vw, 64px);
+  --frame: 1140px;
+  --radius-card: clamp(20px, 3.2vw, 32px);
+  --radius-pill: 999px;
+  --shadow-card: 0 1px 2px rgb(23 22 18 / 4%), 0 18px 40px -28px rgb(23 22 18 / 28%);
+  --shadow-lift: 0 2px 4px rgb(23 22 18 / 5%), 0 28px 60px -30px rgb(23 22 18 / 34%);
+
+  /* motion */
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur-fast: 160ms;
+  --dur: 240ms;
+  --dur-slow: 320ms;
+
+  font-family: var(--family-sans);
+  color: var(--ink);
+  background: var(--paper);
+  font-synthesis-weight: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color-scheme: light;
+  caret-color: var(--accent-red);
+}
+
+/* ------------------------------------------------------------------ *
+ * Base
+ * ------------------------------------------------------------------ */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--paper);
+  line-height: 1.6;
+  text-align: start;
+  font-size: var(--step-body);
+  /* `clip`, not `hidden`. Pairing a non-visible overflow-x with a visible
+     overflow-y computes that overflow-y to `auto`, which quietly turns the body
+     into the page scroller and cuts `position: fixed` off the viewport. */
+  overflow-x: clip;
+}
+
+h1,
+h2,
+h3,
+p,
+figure,
+fieldset,
+legend {
+  margin: 0;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--family-display);
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: 0;
+  padding: 0;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+  text-underline-offset: 4px;
+  text-decoration-thickness: from-font;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: auto;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Inside a stub the ink changes, so the focus ring has to follow it. */
+.slip :focus-visible {
+  outline-color: currentColor;
+}
+
+::selection {
+  background: var(--ink);
+  color: var(--card-cream);
+}
+
+/* ------------------------------------------------------------------ *
+ * Type utilities
+ * ------------------------------------------------------------------ */
+
+.display {
+  font-family: var(--family-display);
+  font-size: var(--step-display);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+}
+
+.display em {
+  font-family: var(--family-funky);
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--accent-red);
+}
+
+.title {
+  font-size: var(--step-title);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: var(--step-subtitle);
+  line-height: 1.14;
+  letter-spacing: -0.015em;
+}
+
+.label {
+  font-size: var(--step-label);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.lede {
+  max-width: 46ch;
+  margin-inline: auto;
+  color: var(--muted-ink);
+  font-size: var(--step-lead);
+  line-height: 1.58;
+  text-wrap: pretty;
+}
+
+.stack {
+  display: grid;
+  justify-items: center;
+  gap: clamp(20px, 3vw, 30px);
+  text-align: center;
+}
+
+.rule {
+  height: 1px;
+  border: 0;
+  background: var(--line);
+}
+
+.dashes {
+  height: 2px;
+  border: 0;
+  background-image: repeating-linear-gradient(
+    to right,
+    currentColor 0 18px,
+    transparent 18px 26px
+  );
+  opacity: 0.45;
+}
+
+/* ------------------------------------------------------------------ *
+ * Shell
+ * ------------------------------------------------------------------ */
+
+.app-shell {
+  --result-color: var(--ink);
+  --result-ink: var(--ink);
+  --result-contrast: var(--accent-orange);
+  --result-contrast-ink: var(--ink);
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  isolation: isolate;
+}
+
+/* Only the results screen locks to the viewport. Home, intro and quiz keep
+   scrolling with their content, because clipping them would hide copy on a
+   short screen or at large text sizes — the opposite of what they are for. */
+.app-shell--results {
+  block-size: 100svh;
+  overflow: hidden;
+}
+
+.skip-link {
+  position: fixed;
+  inset-block-start: 10px;
+  inset-inline-start: 10px;
+  z-index: 60;
+  padding: 12px 18px;
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+  color: var(--card-cream);
+  font-size: var(--step-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transform: translateY(-160%);
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(12px, 2vw, 20px);
+  padding-block: max(clamp(14px, 2.2vw, 22px), env(safe-area-inset-top));
+  /* `padding-inline` takes start then end, so the start inset has to lead.
+     These only bite at all because index.html sets `viewport-fit=cover`. */
+  padding-inline: max(var(--gutter), env(safe-area-inset-left)) max(var(--gutter), env(safe-area-inset-right));
+}
+
+.site-header__aside {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+}
+
+.text-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding-inline: 4px;
+  color: var(--muted-ink);
+  font-size: var(--step-label);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.text-action:hover {
+  color: var(--ink);
+}
+
+.text-action svg {
+  width: 16px;
+  height: 16px;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  /* A flex child will not shrink below its content without this, which is what
+     pushes a fixed-height screen's footer past the bottom of the viewport. */
+  min-block-size: 0;
+}
+
+.screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-inline: var(--gutter);
+  padding-block: clamp(28px, 5vw, 64px) clamp(32px, 5vw, 72px);
+}
+
+.screen--center {
+  justify-content: center;
+  align-items: center;
+  gap: clamp(40px, 7vw, 88px);
+  text-align: center;
+}
+
+.frame {
+  width: 100%;
+  max-width: var(--frame);
+  margin-inline: auto;
+}
+
+/* ------------------------------------------------------------------ *
+ * Brand
+ * ------------------------------------------------------------------ */
+
+.brand-logo {
+  --logo-size: 40px;
+  display: block;
+  flex: 0 0 auto;
+  inline-size: var(--logo-size);
+  block-size: var(--logo-size);
+  object-fit: contain;
+}
+
+.brand-logo--hero {
+  --logo-size: clamp(112px, 25vw, 208px);
+}
+
+.brand-logo--card {
+  --logo-size: 48px;
+}
+
+/* Mark first, logotype second: the image carries the identity, the
+   brand face only names it. Both share one optical baseline. */
+.brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 4px;
+  margin: -4px;
+  border-radius: 8px;
+  color: var(--ink);
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+
+.brand-lockup:hover {
+  opacity: 0.68;
+}
+
+.brand-lockup__logotype {
+  font-family: var(--family-funky);
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.hero-mark {
+  display: grid;
+  justify-items: center;
+  gap: clamp(14px, 2vw, 20px);
+  margin-block-end: clamp(2px, 1vw, 10px);
+}
+
+.hero-mark__rule {
+  inline-size: 100%;
+  max-inline-size: 238px;
+}
+
+/* ------------------------------------------------------------------ *
+ * Buttons
+ * ------------------------------------------------------------------ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 14px clamp(28px, 5vw, 44px);
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  font-size: var(--step-label);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--dur) var(--ease-out),
+    color var(--dur) var(--ease-out),
+    border-color var(--dur) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.btn svg {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 auto;
+}
+
+.share {
+  display: inline-flex;
+}
+
+.cta-row .share .btn--quiet {
+  border: 0;
+}
+
+.btn--solid {
+  background: var(--ink);
+  color: var(--card-cream);
+}
+
+.btn--solid:hover {
+  background: var(--ink-soft);
+  border-color: var(--ink-soft);
+}
+
+.btn--outline {
+  border-color: var(--line);
+  background: var(--card-cream);
+  color: var(--ink);
+}
+
+.btn--outline:hover {
+  border-color: var(--ink);
+  background: var(--cream);
+}
+
+.btn--quiet {
+  min-height: 44px;
+  padding: 12px 20px;
+  border-color: var(--line);
+  background: transparent;
+  color: var(--muted-ink);
+  font-weight: 500;
+}
+
+.btn--quiet:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+.btn--block {
+  width: 100%;
+}
+
+.btn--icon {
+  min-height: 44px;
+  width: 44px;
+  padding: 0;
+  border-radius: var(--radius-pill);
+  border-color: currentColor;
+  color: inherit;
+  background: transparent;
+  opacity: 0.75;
+  transition: opacity var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
+}
+
+.btn--icon:hover {
+  opacity: 1;
+  background: rgb(23 22 18 / 8%);
+}
+
+.btn:focus-visible,
+.text-action:focus-visible,
+.details-select-trigger:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+  box-shadow: none;
+}
+
+.btn--icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.btn:active {
+  transform: scale(0.985);
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.cta-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.cta-row .btn--quiet {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 0;
+  padding-inline: 12px;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-size: var(--step-small);
+  font-weight: 400;
+}
+
+.cta-row .btn--quiet svg {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 auto;
+}
+
+/* ------------------------------------------------------------------ *
+ * Intro
+ * ------------------------------------------------------------------ */
+
+.intro-card {
+  display: grid;
+  gap: clamp(20px, 3vw, 28px);
+  width: 100%;
+  max-width: 520px;
+  padding: clamp(24px, 4vw, 40px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--card-cream);
+  box-shadow: var(--shadow-card);
+  text-align: start;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+.field__label {
+  color: var(--muted-ink);
+}
+
+.details-select-trigger {
+  width: 100%;
+  min-height: 48px;
+  padding-inline: 16px;
+  border: 1px solid var(--line);
+  border-radius: calc(var(--radius) * 0.9);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 1rem;
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+
+.details-select-trigger:hover {
+  border-color: var(--warm-gray);
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--destructive);
+  font-size: var(--step-small);
+  line-height: 1.45;
+}
+
+.error-message svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+}
+
+/* ------------------------------------------------------------------ *
+ * Quiz
+ * ------------------------------------------------------------------ */
+
+.quiz {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(16px, 2.4vw, 26px);
+  width: 100%;
+  padding-inline: var(--gutter);
+  padding-block: clamp(10px, 2vw, 28px) clamp(16px, 3vw, 40px);
+}
+
+.quiz__frame {
+  display: grid;
+  gap: clamp(14px, 2vw, 24px);
+  width: 100%;
+  max-width: 780px;
+  margin-block: auto;
+  padding-block: clamp(6px, 1.6vw, 24px);
+}
+
+.quiz__progress {
+  margin-top: clamp(6px, 1.4vw, 14px);
+}
+
+.quiz__progress [data-slot="progress-track"] {
+  height: 3px;
+  background: var(--shade);
+  border-radius: var(--radius-pill);
+}
+
+.quiz__progress [data-slot="progress-indicator"] {
+  background: var(--result-color);
+  border-radius: var(--radius-pill);
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.quiz__count {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  color: var(--muted-ink);
+  font-size: var(--step-label);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+}
+
+.quiz__count b {
+  color: var(--ink);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.quiz__count span:last-child {
+  color: var(--warm-gray);
+}
+
+.quiz__kicker {
+  color: var(--muted-ink);
+}
+
+.quiz__title {
+  font-size: clamp(1.25rem, 1.02rem + 1.05vw, 2.125rem);
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  text-wrap: pretty;
+}
+
+.quiz__prompt {
+  color: var(--muted-ink);
+  font-size: var(--step-small);
+  letter-spacing: 0.01em;
+}
+
+/* Two columns is the base, not an upgrade: five stacked 56px rows overflow a
+   short phone, and two columns still fit down to the 320px floor. */
+.answer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  border: 0;
+  padding: 0;
+  min-inline-size: 0;
+}
+
+.answer--final {
+  grid-column: 1 / -1;
+}
+
+.answer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 52px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: calc(var(--radius) * 0.9);
+  background: var(--card-cream);
+  cursor: pointer;
+  transition:
+    background-color var(--dur) var(--ease-out),
+    border-color var(--dur) var(--ease-out),
+    color var(--dur) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.answer:hover {
+  border-color: var(--ink);
+  background: var(--cream);
+}
+
+.answer:active {
+  transform: scale(0.99);
+}
+
+.answer__dot {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  border: 1.5px solid var(--warm-gray);
+  border-radius: 50%;
+  transition: border-color var(--dur) var(--ease-out), background-color var(--dur) var(--ease-out);
+}
+
+.answer__label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* The 1/5 scale is the first thing to go when a row runs out of width. */
+.answer__scale {
+  display: none;
+  margin-inline-start: auto;
+  color: var(--warm-gray);
+  font-size: var(--step-label);
+  letter-spacing: 0.1em;
+  font-variant-numeric: tabular-nums;
+}
+
+.answer:has(:checked) {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--card-cream);
+  animation: answer-picked 420ms var(--ease-out);
+}
+
+/* The tap lands before the advance: a short press-in plus a ring that fades
+   out. The quiz remounts per question, so the animation never replays. */
+@keyframes answer-picked {
+  0% {
+    transform: scale(0.965);
+  }
+  45% {
+    transform: scale(1.012);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.answer:has(:checked)::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border: 1px solid var(--ink);
+  border-radius: inherit;
+  pointer-events: none;
+  animation: answer-ring 520ms var(--ease-out) forwards;
+}
+
+@keyframes answer-ring {
+  0% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.045);
+  }
+}
+
+.answer:has(:checked) .answer__dot {
+  border-color: var(--card-cream);
+  background: var(--card-cream);
+  box-shadow: inset 0 0 0 4px var(--ink);
+}
+
+.answer:has(:checked) .answer__scale {
+  color: color-mix(in oklab, var(--card-cream) 65%, transparent);
+}
+
+.answer:has(:focus-visible),
+.quiz[data-keyboard="true"] .answer:has(:focus) {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.answer input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 1px;
+  height: 1px;
+}
+
+.calculating {
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  padding-block: clamp(60px, 18vh, 160px);
+  color: var(--muted-ink);
+  text-align: center;
+}
+
+.calculating__title {
+  font-family: var(--family-display);
+  font-size: var(--step-subtitle);
+  color: var(--ink);
+}
+
+.calculating-skeleton {
+  width: min(220px, 60%);
+  height: 6px;
+  background: var(--shade);
+}
+
+/* ------------------------------------------------------------------ *
+ * Results deck
+ * ------------------------------------------------------------------ */
+
+/* The results screen claims the viewport outright: header, deck, footer, and
+   no page scroll between them. The deck is the only scroller, and it scrolls
+   sideways. A slip that would outgrow its slot scrolls inside itself rather
+   than pushing the footer off the bottom, so nothing is ever unreachable. */
+.results {
+  flex: 1;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto auto;
+  gap: clamp(8px, 1.6vh, 16px);
+  width: 100%;
+  max-width: var(--frame);
+  min-block-size: 0;
+  margin-inline: auto;
+  padding-block: clamp(6px, 1.2vh, 14px) clamp(10px, 2vh, 20px);
+  padding-inline: calc(var(--gutter) + env(safe-area-inset-left)) calc(var(--gutter) + env(safe-area-inset-right));
+  text-align: center;
+}
+
+.deck {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: clamp(8px, 1.6vh, 14px);
+  min-block-size: 0;
+  min-inline-size: 0;
+}
+
+/* One stub per view, snapped. The vertical axis is left scrollable on purpose:
+   it never engages at the sizes this was designed against, and it is the safety
+   valve that keeps long copy reachable at large text sizes. */
+.deck__track {
+  display: flex;
+  align-items: stretch;
+  min-block-size: 0;
+  overflow: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.deck__track::-webkit-scrollbar {
+  display: none;
+}
+
+.deck__slide {
+  display: flex;
+  flex: 0 0 100%;
+  min-inline-size: 0;
+  /* Room for the tilt, so a rotated stub never clips against its neighbour. */
+  padding: 2px 14px;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}
+
+.deck__slide:focus-visible {
+  outline-offset: -4px;
+}
+
+/* ------------------------------------------------------------------ *
+ * Ticket stubs
+ * ------------------------------------------------------------------ */
+
+.slip {
+  --slip-pad: clamp(14px, 3.6vw, 24px);
+  --slip-tilt: 0deg;
+  position: relative;
+  /* The stub is its own sizing context, so its type scales to the column it
+     actually landed in. Sized against the viewport instead, a word like
+     "Subconscious" outruns a 200px grid column and gets clipped. */
+  container-type: inline-size;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  gap: clamp(10px, 1.8vh, 18px);
+  inline-size: 100%;
+  min-block-size: 0;
+  padding: var(--slip-pad);
+  border-radius: calc(var(--radius-card) * 0.7);
+  background: var(--slip-bg);
+  color: var(--slip-fg);
+  box-shadow: var(--shadow-lift);
+  text-align: center;
+  transform: rotate(var(--slip-tilt));
+  /* The punch notches sit on the slip edge, so the horizontal overflow is
+     clipped to a semicircle — which is exactly what a torn stub looks like. */
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.slip--main {
+  --slip-bg: var(--result-color);
+  --slip-fg: var(--result-ink);
+}
+
+.slip--contrast {
+  --slip-bg: var(--result-contrast);
+  --slip-fg: var(--result-contrast-ink);
+}
+
+.slip--ink {
+  --slip-bg: var(--ink);
+  --slip-fg: var(--card-cream);
+}
+
+.slip--paper {
+  --slip-bg: var(--card-cream);
+  --slip-fg: var(--ink);
+}
+
+/* The stub head: a serial off the roll and the section it belongs to. */
+.slip__stub {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.slip__serial {
+  font-family: var(--family-funky);
+  font-size: clamp(0.75rem, 9cqi, 1.125rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.slip__kicker {
+  font-size: var(--step-label);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.75;
+  text-align: end;
+  overflow-wrap: break-word;
+}
+
+/* The tear line. It runs the full width of the stub rather than the padded
+   content box, because the punch notches have to land on the stub edge. */
+.slip__perf {
+  position: relative;
+  block-size: 0;
+  margin-inline: calc(var(--slip-pad) * -1);
+  border-top: 2px dashed currentColor;
+  opacity: 0.45;
+}
+
+.slip__perf::before,
+.slip__perf::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 0;
+  inline-size: 14px;
+  block-size: 14px;
+  border-radius: 50%;
+  background: var(--paper);
+  transform: translateY(-50%);
+  box-shadow: inset 0 1px 2px rgb(23 22 18 / 24%);
+}
+
+.slip__perf::before {
+  inset-inline-start: -7px;
+}
+
+.slip__perf::after {
+  inset-inline-end: -7px;
+}
+
+.slip__body {
+  display: grid;
+  gap: clamp(10px, 1.8vh, 18px);
+  min-block-size: 0;
+}
+
+/* Only the two stubs that carry a shelf give it a row of its own. It is `1fr`,
+   not `minmax(0, 1fr)`: the auto minimum keeps the row at least as tall as the
+   shelf, where a min of 0 collapsed it and let the shelf spill backwards over
+   the heading. Leaving the other rows content-sized keeps the blurb under its
+   heading instead of letting the rows stretch apart. */
+.slip--main .slip__body,
+.slip--contrast .slip__body {
+  grid-template-rows: auto auto 1fr;
+}
+
+/* The two text-only stubs have no shelf to fill them, so their body sits in the
+   middle of the stub instead of stranding the words against the tear line. */
+.slip--ink .slip__body,
+.slip--paper .slip__body {
+  align-content: center;
+}
+
+.slip__heading {
+  font-size: clamp(1.125rem, 12cqi, 2.125rem);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+
+.slip__heading em {
+  font-style: italic;
+  font-weight: 500;
+}
+
+.slip__body-text {
+  max-width: 44ch;
+  margin-inline: auto;
+  font-size: clamp(0.8125rem, 4.4cqi, var(--step-body));
+  line-height: 1.5;
+  opacity: 0.9;
+  text-wrap: pretty;
+  overflow-wrap: break-word;
+}
+
+.slip__body-text em {
+  font-family: var(--family-display);
+  font-style: italic;
+}
+
+.slip__foot {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+}
+
+.slip__stamp {
+  font-size: var(--step-label);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  text-wrap: balance;
+}
+
+/* ------------------------------------------------------------------ *
+ * Poster strips
+ * ------------------------------------------------------------------ */
+
+/* Posters are 2:3 by nature, so each cell holds that ratio, and the thumb is
+   capped rather than stretched — a strip reads the same on a 340px phone and
+   in a 260px grid column instead of growing to fill whatever it is given. */
+.strip {
+  display: grid;
+  grid-template-columns: repeat(var(--strip-columns, 3), minmax(0, 1fr));
+  gap: clamp(8px, 1.8vw, 14px);
+  inline-size: 100%;
+  /* Auto margin rather than `align-self`, so the leftover height collapses into
+     one place: the shelf rides the foot of the stub and the blurb stays put. */
+  margin-block-start: auto;
+}
+
+.strip__cell {
+  display: grid;
+  justify-items: center;
+  gap: 5px;
+  min-inline-size: 0;
+}
+
+.strip__thumb {
+  inline-size: 100%;
+  max-inline-size: clamp(72px, 22vw, 110px);
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: calc(var(--radius-card) * 0.25);
+  box-shadow: 0 2px 6px color-mix(in srgb, currentColor 28%, transparent);
+}
+
+/* Same box as a real poster, so a shelf keeps its rhythm without artwork. */
+.strip__thumb--standin {
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, currentColor 12%, transparent);
+  border: 1px solid color-mix(in srgb, currentColor 26%, transparent);
+  font-family: var(--family-display);
+  font-size: clamp(1rem, 2.2vw, 1.625rem);
+  font-weight: 600;
+  line-height: 1;
+  opacity: 0.6;
+}
+
+/* Two lines are reserved either way, so a long title cannot lift its cell. */
+.strip__title {
+  font-size: clamp(0.75rem, 0.7rem + 0.2vw, 0.9375rem);
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  text-wrap: balance;
+  min-block-size: 2.4em;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+.strip__meta {
+  min-block-size: 1.2em;
+  font-size: var(--step-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ------------------------------------------------------------------ *
+ * Deck controls
+ * ------------------------------------------------------------------ */
+
+.deck__controls {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(6px, 2.5vw, 14px);
+}
+
+.deck__step {
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+.deck__dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-block-size: 44px;
+}
+
+/* The hit area is a full 44px tall; the mark inside it is only 10px. */
+.deck__dot {
+  position: relative;
+  display: block;
+  inline-size: 26px;
+  block-size: 44px;
+  padding: 0;
+  background: none;
+  border: 0;
+}
+
+.deck__dot::after {
+  content: "";
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  translate: -50% -50%;
+  inline-size: 10px;
+  block-size: 10px;
+  border-radius: var(--radius-pill);
+  background: var(--warm-gray);
+  transition: inline-size var(--dur) var(--ease-out), background-color var(--dur) var(--ease-out);
+}
+
+.deck__dot:hover::after {
+  background: var(--ink);
+}
+
+.deck__dot[aria-current="true"]::after {
+  inline-size: 24px;
+  background: var(--ink);
+}
+
+/* ------------------------------------------------------------------ *
+ * Results footer
+ * ------------------------------------------------------------------ */
+
+.results__footer {
+  display: grid;
+  justify-items: center;
+  gap: clamp(6px, 1.2vh, 10px);
+  text-align: center;
+}
+
+/* Stacked full-width on a phone: the labels are wide enough that two of them
+   side by side would force the row wider than the viewport. */
+.results__actions {
+  display: grid;
+  gap: 8px;
+  inline-size: 100%;
+}
+
+.results__actions > * {
+  inline-size: 100%;
+}
+
+/* TMDB terms require this credit beside their artwork. */
+.attribution {
+  max-width: 46ch;
+  margin: 0;
+  color: var(--muted-ink);
+  font-size: var(--step-label);
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  text-wrap: pretty;
+}
+
+/* ------------------------------------------------------------------ *
+ * Breakpoints
+ *
+ * Written mobile-first against a 360px phone. Every rule below a base
+ * declaration, and none of them narrows a wider screen.
+ * ------------------------------------------------------------------ */
+
+@media (min-width: 480px) {
+  .answer__label {
+    font-size: var(--step-small);
+  }
+
+  .answer__scale {
+    display: block;
+  }
+}
+
+@media (min-width: 640px) {
+  .cta-row {
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .answer {
+    min-height: 58px;
+    padding-inline: 26px;
+  }
+
+  /* All four stubs fit on one screen from here, so the deck becomes a grid and
+     the swipe controls retire rather than having nothing left to move. It stays
+     two-up at every desktop width: four columns leaves each film title about
+     50px, which clips every name past its second word. */
+  .deck {
+    grid-template-rows: minmax(0, 1fr);
+  }
+
+  .deck__track {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: clamp(14px, 1.8vw, 24px);
+    overflow: hidden;
+    scroll-snap-type: none;
+  }
+
+  /* Just enough padding that a tilted stub's corners are never clipped by the
+     track's own overflow, and little enough tilt that the corner stays inside
+     that padding. */
+  .deck__slide {
+    padding: clamp(2px, 0.4vh, 6px);
+  }
+
+  /* A torn strip of stubs, alternating a little either way. */
+  .deck__slide:nth-child(odd) .slip {
+    --slip-tilt: 0.5deg;
+  }
+
+  .deck__slide:nth-child(even) .slip {
+    --slip-tilt: -0.5deg;
+  }
+
+  .results__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .results__actions > * {
+    flex: 1 1 12rem;
+    inline-size: auto;
+  }
+}
+
+/* Two rows of stubs in a tablet window is the tightest grid the deck ever gets:
+   each stub is roughly a third of a wide-but-not-tall screen. Copy and shelves
+   compress together here so a stub cannot outgrow its row and hide the end of a
+   blurb. Four-up from 1024px has the height for the full-size treatment. */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .slip {
+    --slip-pad: clamp(14px, 2.4vw, 20px);
+    gap: clamp(8px, 1.4vh, 14px);
+  }
+
+  .slip__body {
+    gap: clamp(8px, 1.4vh, 14px);
+  }
+
+  .slip__heading {
+    font-size: clamp(1.125rem, 0.9rem + 1vw, 1.5rem);
+  }
+
+  .slip__body-text {
+    font-size: 0.875rem;
+    line-height: 1.45;
+  }
+
+  .strip__title {
+    min-block-size: 1.2em;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+  }
+
+  .strip__thumb {
+    max-inline-size: clamp(60px, 9vw, 92px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .quiz__frame {
+    gap: 30px;
+  }
+
+  /* From here there is height for all four stubs in a single row, which is also
+     the arrangement the ticket metaphor is really asking for: one strip of four
+     stubs rather than a grid of four. Two-up would leave each stub too short to
+     hold a blurb and a shelf at once. */
+  .deck__track {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: minmax(0, 1fr);
+  }
+
+  /* A tall, narrow stub gets a vertical shelf: one film per row, title beside
+     its poster. Three columns across a 200px stub is the only arrangement that
+     clips every film name past its second word. */
+  .strip {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(8px, 1.4vh, 14px);
+  }
+
+  .strip__cell {
+    grid-template-columns: 46px minmax(0, 1fr);
+    grid-template-areas:
+      "thumb title"
+      "thumb meta";
+    align-items: center;
+    justify-items: start;
+    gap: 2px 10px;
+    text-align: start;
+  }
+
+  .strip__thumb {
+    grid-area: thumb;
+    inline-size: 46px;
+    max-inline-size: 46px;
+    align-self: start;
+  }
+
+  .strip__title {
+    grid-area: title;
+    min-block-size: 0;
+  }
+
+  .strip__meta {
+    grid-area: meta;
+    min-block-size: 0;
+  }
+}
+
+@media (min-width: 1440px) {
+  :root {
+    --frame: 1200px;
+  }
+}
+
+/* A short viewport is a height problem, not a width one, so it gets its own
+   axis instead of a width band that would fight the ones above. On a stub this
+   is the difference between the whole result being visible and the reader
+   having to scroll inside the stub to reach the last line of a blurb. */
+@media (max-height: 720px) {
+  .brand-logo--hero {
+    --logo-size: clamp(88px, 18vw, 132px);
+  }
+
+  .screen {
+    padding-block: clamp(18px, 3vh, 32px) clamp(22px, 4vh, 40px);
+  }
+
+  .screen--center {
+    gap: clamp(24px, 5vh, 48px);
+  }
+
+  .stack {
+    gap: clamp(14px, 2.4vh, 22px);
+  }
+
+  .slip {
+    --slip-pad: clamp(12px, 3vw, 18px);
+    gap: clamp(8px, 1.4vh, 14px);
+  }
+
+  .slip__body {
+    gap: clamp(8px, 1.4vh, 14px);
+  }
+
+  .slip__heading {
+    font-size: clamp(1.25rem, 0.95rem + 1.2vw, 1.75rem);
+  }
+
+  .slip__body-text {
+    font-size: 0.9375rem;
+    line-height: 1.45;
+  }
+
+  /* One line of title and a smaller poster: the shelf still reads as a shelf,
+     and the stub stops outgrowing the screen it has to fit inside. */
+  .strip__title {
+    min-block-size: 1.2em;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+  }
+
+  .strip__thumb {
+    max-inline-size: clamp(56px, 19vw, 88px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* The tilt is decoration, so it goes rather than merely animating to rest. */
+  .slip {
+    transform: none;
+  }
+
+  /* Swiper drives its own transforms; forcing them off would strand every
+     slide on top of the first one. */
+  .swiper-slide,
+  .swiper-wrapper {
+    transition: none !important;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Skiper 48 result deck
+ * ------------------------------------------------------------------ */
+
+/* Swiper resolves 100% against a parent with a definite height, so the chain
+   from the deck row down to the track has to pass its height along explicitly.
+   Without `min-block-size: 0` the 1fr row is allowed to grow and the results
+   shell overflows its own 100dvh. */
+/* One element carries both classes: `deck__swiper` marks the deck's carousel arm
+   for context, `skiper__frame` comes from the component. It is the deck's first
+   grid row, so the swipe controls get their own row underneath the track. */
+.deck__swiper,
+.skiper__frame {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: clamp(8px, 1.4vh, 14px);
+  /* The implicit column would be `auto`, whose maximum is max-content, so it is
+     free to grow past the container — and it does, because Swiper writes each
+     slide's width in pixels and the stub sizes its type in `cqi`. The two feed
+     each other until the deck settles near 33,000,000px. A single 1fr column
+     with a zero minimum pins the track to the container and ends the cycle.
+     `min-inline-size: 0` alone is not enough: it floors the item, not the
+     track the item lives in. */
+  grid-template-columns: minmax(0, 1fr);
+  min-block-size: 0;
+  min-inline-size: 0;
+  overflow: hidden;
+}
+
+.skiper__track {
+  block-size: 100%;
+  inline-size: 100%;
+  min-block-size: 0;
+  min-inline-size: 0;
+  border-radius: 0;
+}
+
+/* Swiper writes `width: <px>` inline onto every slide, measured from the track.
+   With `slidesPerView: 1` that width should equal the track, but the stub is a
+   `container-type: inline-size` box whose type is sized in `cqi`, so a wide
+   measurement inflates the type, the type inflates the minimum content width,
+   and the next measurement is wider again. The loop settles near 33,000,000px
+   and takes the whole results screen with it.
+
+   The chain has to be pinned at the top, not the bottom: capping the slide alone
+   does nothing, because `max-inline-size: 100%` on the slide resolves against a
+   wrapper that has already blown out. Fixing the track and the wrapper to the
+   container width, then capping the slide to the wrapper, is what actually ends
+   the cycle — and for one slide per view each of those is the correct value. */
+.skiper__track .swiper-wrapper {
+  inline-size: 100%;
+}
+
+.skiper__track .swiper-slide {
+  max-inline-size: 100%;
+}
+
+.skiper__track:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: -2px;
+}
+
+/* Swiper's own slide padding is zero, so the tilt needs its own room here or a
+   rotated stub clips against the carousel's overflow. */
+.deck__cell {
+  display: flex;
+  block-size: 100%;
+  min-block-size: 0;
+  min-inline-size: 0;
+  padding: 2px 10px;
+}
+
+.skiper__nav {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline: 0;
+  z-index: 5;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.skiper__arrow {
+  pointer-events: auto;
+  display: grid;
+  place-items: center;
+  inline-size: 36px;
+  block-size: 36px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--ink);
+  box-shadow: var(--shadow-lift);
+  cursor: pointer;
+}
+
+.skiper__arrow:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}

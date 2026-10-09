@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "paths": { "@/*": ["./src/*"] },
+    "moduleResolution": "bundler",
+    "lib": ["esnext", "dom"],
+    "types": ["node"],
+    "allowJs": true,
+    "checkJs": false,
+    "jsx": "react-jsx"
+  },
+  "include": ["src", "vite.config.js"]
+}

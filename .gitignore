@@ -1,0 +1,26 @@
+# Secrets — backend/.env holds a real TMDB_API_KEY. It must never be committed.
+# Commit backend/.env.example instead.
+backend/.env
+.env
+.env.*
+!.env.example
+
+# Node
+node_modules/
+frontend/dist/
+*.local
+
+# Capture output — regenerate with `npm run capture`
+frontend/screenshots/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

@@ -1,0 +1,509 @@
+{
+  "colorProfiles": {
+    "red": {
+      "archetype": "The Kinetic Storyteller",
+      "genres": [
+        53,
+        80,
+        10749
+      ],
+      "minimumRating": 7.0,
+      "stretchText": "You’re drawn to intensity, conflict, and characters who burn brightly. But not every emotion needs to scream — Blue cinema teaches you to find meaning in silence, restraint, and what remains unsaid.",
+      "characters": {
+        "male_under_25": "Miles Morales — Spider-Man: Into the Spider-Verse",
+        "female_under_25": "Wednesday Addams — Wednesday",
+        "male_25_40": "Tyler Durden — Fight Club",
+        "female_25_40": "Mia Wallace — Pulp Fiction",
+        "male_over_40": "Tony Montana — Scarface",
+        "female_over_40": "Miranda Priestly — The Devil Wears Prada",
+        "nonbinary_under_25": "Elliot Page — Juno",
+        "nonbinary_25_40": "V — V for Vendetta",
+        "nonbinary_over_40": "Alex Danvers — Supergirl"
+      }
+    },
+    "blue": {
+      "archetype": "The Existential Philosopher",
+      "genres": [
+        18,
+        9648,
+        10749
+      ],
+      "minimumRating": 7.5,
+      "stretchText": "You tend to look inward, searching for beauty in melancholy and quiet moments. But sometimes a story needs to break its own rules — Red cinema will pull you toward chaos, desire, and the thrill of feeling without overthinking.",
+      "characters": {
+        "male_under_25": "Peter Parker — Spider-Man",
+        "female_under_25": "Elsa — Frozen",
+        "male_25_40": "Truman Burbank — The Truman Show",
+        "female_25_40": "Amélie Poulain — Amélie",
+        "male_over_40": "Leonard Shelby — Memento",
+        "female_over_40": "Evelyn Wang — Everything Everywhere All at Once",
+        "nonbinary_under_25": "Nico Robin — One Piece",
+        "nonbinary_25_40": "Klaus — The Umbrella Academy",
+        "nonbinary_over_40": "V — V for Vendetta"
+      }
+    },
+    "green": {
+      "archetype": "The Grounded Observer",
+      "genres": [
+        18,
+        99,
+        36
+      ],
+      "minimumRating": 7.0,
+      "stretchText": "You’re drawn to grounded stories, observation, and the strange beauty of ordinary life. Orange cinema asks you to loosen your grip on reality — to embrace absurdity, spontaneity, and a little beautiful disorder.",
+      "characters": {
+        "male_under_25": "Harry Potter — Harry Potter",
+        "female_under_25": "Katniss Everdeen — The Hunger Games",
+        "male_25_40": "Neo — The Matrix",
+        "female_25_40": "Princess Fiona — Shrek",
+        "male_over_40": "William 'Bill' Foster — Falling Down",
+        "female_over_40": "Mildred Hayes — Three Billboards Outside Ebbing, Missouri",
+        "nonbinary_under_25": "Sam — Disclosure",
+        "nonbinary_25_40": "Elliot Page — Juno",
+        "nonbinary_over_40": "Morgaine — Chilling Adventures of Sabrina"
+      }
+    },
+    "yellow": {
+      "archetype": "The Visual Optimist",
+      "genres": [
+        35,
+        12,
+        10751
+      ],
+      "minimumRating": 6.5,
+      "stretchText": "You chase warmth, wit, wonder, and the lighter side of cinema. But there’s beauty in stepping into stranger territory — Purple cinema will introduce you to ambiguity, obsession, and the uncomfortable spaces between right and wrong.",
+      "characters": {
+        "male_under_25": "Scott Pilgrim — Scott Pilgrim vs. the World",
+        "female_under_25": "Mia — La La Land",
+        "male_25_40": "Hiccup — How to Train Your Dragon",
+        "female_25_40": "Elle Woods — Legally Blonde",
+        "male_over_40": "Saul Goodman — Better Call Saul",
+        "female_over_40": "Marigold Lexton — The Grand Budapest Hotel",
+        "nonbinary_under_25": "Nakia — Black Panther",
+        "nonbinary_25_40": "Alex Danvers — Supergirl",
+        "nonbinary_over_40": "V — V for Vendetta"
+      }
+    },
+    "orange": {
+      "archetype": "The Warmth-Seeker",
+      "genres": [
+        35,
+        10749,
+        10751
+      ],
+      "minimumRating": 6.0,
+      "stretchText": "You like cinema that feels alive — loud, unpredictable, and slightly chaotic. But beneath all that movement is stillness waiting to be noticed. Green cinema will teach you to find stories in the ordinary.",
+      "characters": {
+        "male_under_25": "Alex — A Clockwork Orange",
+        "female_under_25": "Chihiro — Spirited Away",
+        "male_25_40": "Jules Winnfield — Pulp Fiction",
+        "female_25_40": "Marge Gunderson — Fargo",
+        "male_over_40": "Rocky Balboa — Rocky",
+        "female_over_40": "Frances Mayes — Under the Tuscan Sun",
+        "nonbinary_under_25": "V — V for Vendetta",
+        "nonbinary_25_40": "Nakia — Black Panther",
+        "nonbinary_over_40": "Nico Robin — One Piece"
+      }
+    },
+    "purple": {
+      "archetype": "The Subconscious Architect",
+      "genres": [
+        14,
+        878,
+        27
+      ],
+      "minimumRating": 6.5,
+      "stretchText": "You’re comfortable with the strange, the psychological, and the morally complicated. But don’t mistake darkness for depth. Yellow cinema will remind you that wonder, sincerity, and joy can be just as profound.",
+      "characters": {
+        "male_under_25": "Remy — Ratatouille",
+        "female_under_25": "Violet Parr — The Incredibles",
+        "male_25_40": "The Joker — The Dark Knight",
+        "female_25_40": "Amy Dunne — Gone Girl",
+        "male_over_40": "Gandalf — The Lord of the Rings",
+        "female_over_40": "Morticia Addams — The Addams Family",
+        "nonbinary_under_25": "Morgaine — Chilling Adventures of Sabrina",
+        "nonbinary_25_40": "Ocean — Home Ocean",
+        "nonbinary_over_40": "Alex Danvers — Supergirl"
+      }
+    }
+  },
+  "activeQuestionIds": [
+    1,
+    3,
+    5,
+    7,
+    9,
+    11,
+    13,
+    15,
+    17,
+    19,
+    21,
+    23,
+    25,
+    27,
+    29
+  ],
+  "quizQuestions": [
+    {
+      "id": 1,
+      "text": "Filmed over twelve years, Boyhood quietly follows a boy growing up before our eyes. There are no grand twists—just birthdays, friendships, family, heartbreak, and the small moments that slowly turn a child into an adult.",
+      "weights": {
+        "red": 2,
+        "blue": 4,
+        "green": 5,
+        "yellow": 3,
+        "orange": 2,
+        "purple": 2
+      }
+    },
+    {
+      "id": 2,
+      "text": "After losing his best players, a struggling baseball manager tries to rebuild his team by challenging the traditional way of judging talent. What follows is a story about numbers, belief, failure, and having the courage to see potential where others don't.",
+      "weights": {
+        "red": 2,
+        "blue": 2,
+        "green": 5,
+        "yellow": 3,
+        "orange": 4,
+        "purple": 3
+      }
+    },
+    {
+      "id": 3,
+      "text": "A struggling family slowly finds its way into the home of a wealthy household, each member taking on a carefully constructed role. What begins as a clever scheme gradually exposes the invisible boundaries between wealth, poverty, and class.",
+      "weights": {
+        "red": 4,
+        "blue": 2,
+        "green": 5,
+        "yellow": 1,
+        "orange": 4,
+        "purple": 2
+      }
+    },
+    {
+      "id": 4,
+      "text": "A scientist develops a machine capable of teleporting matter, but a single experiment goes horribly wrong when a fly enters the machine with him. As his body begins to transform, his scientific breakthrough becomes a horrifying story about identity, obsession, and losing control of yourself.",
+      "weights": {
+        "red": 4,
+        "blue": 3,
+        "green": 2,
+        "yellow": 1,
+        "orange": 4,
+        "purple": 5
+      }
+    },
+    {
+      "id": 5,
+      "text": "When a mysterious killer begins terrorizing San Francisco, a cartoonist, journalists, and detectives become obsessed with discovering his identity. As the years pass, the investigation consumes their lives, turning the search for an answer into a haunting study of obsession and uncertainty.",
+      "weights": {
+        "red": 3,
+        "blue": 3,
+        "green": 4,
+        "yellow": 1,
+        "orange": 3,
+        "purple": 5
+      }
+    },
+    {
+      "id": 6,
+      "text": "Truman has spent his entire life inside a world that was never real, surrounded by people who were only playing their parts. When cracks begin to appear in his perfect reality, he must choose between the comfort of everything he knows and the terrifying freedom of discovering the truth.",
+      "weights": {
+        "red": 2,
+        "blue": 4,
+        "green": 3,
+        "yellow": 3,
+        "orange": 4,
+        "purple": 5
+      }
+    },
+    {
+      "id": 7,
+      "text": "One summer in northern Italy, Elio meets Oliver, a visiting scholar who slowly becomes more than just a guest. Their fleeting relationship becomes a tender story about first love, desire, memory, and the kind of heartbreak that stays with you long after summer ends.",
+      "weights": {
+        "red": 2,
+        "blue": 5,
+        "green": 3,
+        "yellow": 4,
+        "orange": 2,
+        "purple": 3
+      }
+    },
+    {
+      "id": 8,
+      "text": "A writer visiting Paris discovers that every night, he can somehow travel back into the city's golden past. As he meets the artists and writers he has always admired, he begins to realize that every generation romanticizes a time that was never really theirs.",
+      "weights": {
+        "red": 1,
+        "blue": 4,
+        "green": 2,
+        "yellow": 5,
+        "orange": 3,
+        "purple": 4
+      }
+    },
+    {
+      "id": 9,
+      "text": "After a painful breakup, Joel discovers that Clementine has erased every memory of their relationship. He decides to do the same, but as those memories disappear one by one, he begins to realize that some pain is worth remembering if it means remembering love.",
+      "weights": {
+        "red": 3,
+        "blue": 5,
+        "green": 2,
+        "yellow": 2,
+        "orange": 2,
+        "purple": 5
+      }
+    },
+    {
+      "id": 10,
+      "text": "In a secret government facility, a lonely mute cleaner forms an unexpected connection with an amphibious creature being held captive. Their relationship becomes a quiet rebellion against a world that defines people by what they look like, how they speak, and whether they belong.",
+      "weights": {
+        "red": 2,
+        "blue": 5,
+        "green": 3,
+        "yellow": 3,
+        "orange": 2,
+        "purple": 4
+      }
+    },
+    {
+      "id": 11,
+      "text": "Two strangers, brought together almost by accident, find a strange kind of companionship in each other. A film about loneliness, coincidence, and the invisible threads that connect people who were never supposed to meet.",
+      "weights": {
+        "red": 5,
+        "blue": 4,
+        "green": 2,
+        "yellow": 1,
+        "orange": 3,
+        "purple": 4
+      }
+    },
+    {
+      "id": 12,
+      "text": "A young man sets out to prove that he is worthy of being called a knight, only to discover that courage isn't about defeating monsters. Sometimes, it is simply about facing yourself when there is nowhere left to run.",
+      "weights": {
+        "red": 4,
+        "blue": 3,
+        "green": 2,
+        "yellow": 1,
+        "orange": 5,
+        "purple": 5
+      }
+    },
+    {
+      "id": 13,
+      "text": "Jim wakes up to a world that has gone strangely quiet. London is empty, society has collapsed, and something is hunting the survivors. But the further he travels, the more the film asks a disturbing question — what exactly makes someone a monster?",
+      "weights": {
+        "red": 5,
+        "blue": 3,
+        "green": 3,
+        "yellow": 1,
+        "orange": 4,
+        "purple": 4
+      }
+    },
+    {
+      "id": 14,
+      "text": "Scott Pilgrim falls for Ramona Flowers, only to discover that dating her comes with one ridiculous condition: he has to defeat her seven evil exes. Beneath the video-game chaos and comic-book absurdity is a story about growing up, letting go of your baggage, and becoming someone worthy of love.",
+      "weights": {
+        "red": 4,
+        "blue": 1,
+        "green": 2,
+        "yellow": 5,
+        "orange": 4,
+        "purple": 3
+      }
+    },
+    {
+      "id": 15,
+      "text": "In a near-future Los Angeles, a lonely writer falls in love with an artificial intelligence designed to understand him. What begins as companionship slowly becomes something more complicated—a quiet exploration of love, loneliness, intimacy, and what it really means to be understood.",
+      "weights": {
+        "red": 2,
+        "blue": 5,
+        "green": 3,
+        "yellow": 2,
+        "orange": 2,
+        "purple": 4
+      }
+    },
+    {
+      "id": 16,
+      "text": "Mr. Fox promises his family he has left his thieving days behind, but old instincts are hard to bury. When he returns to stealing from three ruthless farmers, his clever little rebellion puts everyone he loves in danger.",
+      "weights": {
+        "red": 5,
+        "blue": 2,
+        "green": 1,
+        "yellow": 2,
+        "orange": 4,
+        "purple": 3
+      }
+    },
+    {
+      "id": 17,
+      "text": "At a strict boarding school, an unconventional teacher inspires his students to look beyond the lives already planned for them. A story about youth, individuality, and the courage to live on your own terms.",
+      "weights": {
+        "red": 3,
+        "blue": 4,
+        "green": 3,
+        "yellow": 5,
+        "orange": 2,
+        "purple": 3
+      }
+    },
+    {
+      "id": 18,
+      "text": "After being betrayed and left for dead on her wedding day, a former assassin wakes with one purpose: find the people responsible. What follows is a brutal, stylish journey of revenge, survival, and unfinished business.",
+      "weights": {
+        "red": 2,
+        "blue": 1,
+        "green": 3,
+        "yellow": 5,
+        "orange": 4,
+        "purple": 3
+      }
+    },
+    {
+      "id": 19,
+      "text": "After a public meltdown costs him his restaurant job, a chef takes to the road with his young son and an old friend, starting over with a food truck. Sometimes finding your way back to yourself begins with making something you actually love.",
+      "weights": {
+        "red": 1,
+        "blue": 2,
+        "green": 4,
+        "yellow": 5,
+        "orange": 4,
+        "purple": 1
+      }
+    },
+    {
+      "id": 20,
+      "text": "Jack Torrance takes a job looking after an isolated hotel through the winter, hoping to finally write his novel. As the hotel slowly reveals its darker secrets, isolation begins to turn ambition into something far more terrifying.",
+      "weights": {
+        "red": 5,
+        "blue": 4,
+        "green": 1,
+        "yellow": 1,
+        "orange": 3,
+        "purple": 5
+      }
+    },
+    {
+      "id": 21,
+      "text": "When a basketball coach takes over a struggling high-school team, he demands discipline both on and off the court. What starts as a fight for better grades and better players becomes a lesson in responsibility, self-respect, and believing in more than what people expect of you.",
+      "weights": {
+        "red": 3,
+        "blue": 2,
+        "green": 5,
+        "yellow": 4,
+        "orange": 4,
+        "purple": 2
+      }
+    },
+    {
+      "id": 22,
+      "text": "Paul Atreides is drawn into a struggle for control of Arrakis, the desert planet that holds the most valuable resource in the universe. As his family is pulled into a deadly political conflict, Paul must confront power, destiny, and the terrifying possibility of becoming the person others believe he is meant to be..",
+      "weights": {
+        "red": 4,
+        "blue": 3,
+        "green": 3,
+        "yellow": 1,
+        "orange": 5,
+        "purple": 4
+      }
+    },
+    {
+      "id": 23,
+      "text": "J. Robert Oppenheimer leads the secret scientific effort to build the world's first atomic bomb. As his greatest achievement changes the course of history, he is forced to confront the scientific, political, and moral consequences of creating something humanity cannot simply undo.",
+      "weights": {
+        "red": 5,
+        "blue": 4,
+        "green": 2,
+        "yellow": 1,
+        "orange": 5,
+        "purple": 4
+      }
+    },
+    {
+      "id": 24,
+      "text": "Daniel Plainview builds an oil empire through ambition, manipulation, and ruthless determination. His pursuit of wealth slowly becomes a battle for power, revealing how greed can consume everything it was meant to provide.",
+      "weights": {
+        "red": 5,
+        "blue": 2,
+        "green": 3,
+        "yellow": 1,
+        "orange": 5,
+        "purple": 4
+      }
+    },
+    {
+      "id": 25,
+      "text": "Two strangers, both feeling disconnected from their lives, meet in a Tokyo hotel and form an unexpected friendship. Their brief connection exists somewhere between friendship, intimacy, and loneliness — a reminder that sometimes the people who understand us best are the ones we barely know.",
+      "weights": {
+        "red": 1,
+        "blue": 5,
+        "green": 3,
+        "yellow": 2,
+        "orange": 2,
+        "purple": 4
+      }
+    },
+    {
+      "id": 26,
+      "text": "A jazz musician and an aspiring actress fall in love while chasing their separate dreams in Los Angeles. Their relationship becomes a bittersweet question of whether loving someone always means growing in the same direction.",
+      "weights": {
+        "red": 2,
+        "blue": 4,
+        "green": 2,
+        "yellow": 5,
+        "orange": 4,
+        "purple": 3
+      }
+    },
+    {
+      "id": 27,
+      "text": "A couple looks back at the love that once held them together as their marriage slowly begins to fall apart. Tender and painfully intimate, it explores how love can be real, yet still change beyond recognition.",
+      "weights": {
+        "red": 3,
+        "blue": 5,
+        "green": 2,
+        "yellow": 1,
+        "orange": 2,
+        "purple": 4
+      }
+    },
+    {
+      "id": 28,
+      "text": "A streetwise young thief discovers a magical lamp containing a powerful genie and suddenly finds himself with a chance to become someone he's always dreamed of being. But winning the princess means learning that you can't build a real life by pretending to be someone else.",
+      "weights": {
+        "red": 2,
+        "blue": 2,
+        "green": 2,
+        "yellow": 5,
+        "orange": 4,
+        "purple": 2
+      }
+    },
+    {
+      "id": 29,
+      "text": "Freddie Mercury and Queen rise from small beginnings to become one of the world's most iconic rock bands. Behind the music is a story of ambition, identity, loneliness, and the complicated price of becoming extraordinary.",
+      "weights": {
+        "red": 4,
+        "blue": 3,
+        "green": 2,
+        "yellow": 4,
+        "orange": 5,
+        "purple": 3
+      }
+    },
+    {
+      "id": 30,
+      "text": "After a confession unsettles his seemingly perfect marriage, a doctor drifts into a mysterious world of masked strangers, secret desires, and hidden power. What begins as curiosity becomes a surreal journey through jealousy, intimacy, temptation, and the parts of ourselves we keep hidden.",
+      "weights": {
+        "red": 3,
+        "blue": 4,
+        "green": 1,
+        "yellow": 1,
+        "orange": 3,
+        "purple": 5
+      }
+    }
+  ]
+}
