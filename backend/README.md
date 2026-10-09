@@ -103,7 +103,9 @@ A per-genre failure is skipped rather than failing the whole response, and a mis
 
 ## Frontend wiring
 
-The frontend reads `VITE_API_URL`. When it is unset, the app probes
-`http://localhost:8000/api/health` once and uses the local server if it answers;
-otherwise it skips the request and renders local data. Set `VITE_API_URL` for any
-deployed build, e.g. `VITE_API_URL=https://your-api.onrender.com`.
+The frontend reads `VITE_API_URL` when set. With this repository's Vercel
+services config, the production frontend calls the same-origin `/api` paths and
+Vercel rewrites them to the FastAPI service. In local Vite development, when
+`VITE_API_URL` is unset, it probes `http://localhost:8000/api/health` once and
+uses that server if reachable; otherwise it renders local data. Set
+`VITE_API_URL` only when the API is hosted at a separate origin.

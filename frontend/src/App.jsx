@@ -123,10 +123,10 @@ const answerLabels = ['Not for me', 'Probably not', 'Maybe', 'Probably', 'Defini
 let keyboardMode = false
 
 /**
- * `VITE_API_URL` is the only supported way to point at a deployed backend. In
- * local dev it is usually unset, which used to skip the request entirely and
- * silently serve the hardcoded fallback films — so fall back to the local
- * server, but only after a health probe, and cache the answer.
+ * `VITE_API_URL` can point at a separately hosted API. Vercel serves the
+ * frontend and API on one origin, so production defaults to the same-origin
+ * `/api` rewrite. Local Vite development probes the local FastAPI server once.
+ * If that local server is unavailable, the app falls back to its local data.
  */
 const LOCAL_API = 'http://localhost:8000'
 const PROBE_TIMEOUT_MS = 2500
@@ -151,6 +151,7 @@ function timeoutSignal() {
 async function resolveApiUrl() {
   const configured = import.meta.env.VITE_API_URL
   if (configured) return normalizeApiUrl(configured)
+  if (!import.meta.env.DEV) return window.location.origin
   if (reachableApi === undefined) {
     reachableApi = fetch(`${LOCAL_API}/api/health`, { signal: timeoutSignal() })
       .then((response) => (response.ok ? LOCAL_API : null))
