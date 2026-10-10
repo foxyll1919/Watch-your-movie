@@ -4,7 +4,7 @@
       "archetype": "The Kinetic Storyteller",
       "genres": [
         53,
-        80,
+        27,
         10749
       ],
       "minimumRating": 7.0,
@@ -16,9 +16,9 @@
         "female_25_40": "Mia Wallace — Pulp Fiction",
         "male_over_40": "Tony Montana — Scarface",
         "female_over_40": "Miranda Priestly — The Devil Wears Prada",
-        "nonbinary_under_25": "Elliot Page — Juno",
+        "nonbinary_under_25": "Eleven — Stranger Things",
         "nonbinary_25_40": "V — V for Vendetta",
-        "nonbinary_over_40": "Alex Danvers — Supergirl"
+        "nonbinary_over_40": "Furiosa — Mad Max: Fury Road"
       }
     },
     "blue": {
@@ -31,7 +31,7 @@
       "minimumRating": 7.5,
       "stretchText": "You tend to look inward, searching for beauty in melancholy and quiet moments. But sometimes a story needs to break its own rules — Red cinema will pull you toward chaos, desire, and the thrill of feeling without overthinking.",
       "characters": {
-        "male_under_25": "Peter Parker — Spider-Man",
+        "male_under_25": "Charlie Kelmeckis — The Perks of Being a Wallflower",
         "female_under_25": "Elsa — Frozen",
         "male_25_40": "Truman Burbank — The Truman Show",
         "female_25_40": "Amélie Poulain — Amélie",
@@ -39,7 +39,7 @@
         "female_over_40": "Evelyn Wang — Everything Everywhere All at Once",
         "nonbinary_under_25": "Nico Robin — One Piece",
         "nonbinary_25_40": "Klaus — The Umbrella Academy",
-        "nonbinary_over_40": "V — V for Vendetta"
+        "nonbinary_over_40": "Motoko Kusanagi — Ghost in the Shell"
       }
     },
     "green": {
@@ -58,9 +58,9 @@
         "female_25_40": "Princess Fiona — Shrek",
         "male_over_40": "William 'Bill' Foster — Falling Down",
         "female_over_40": "Mildred Hayes — Three Billboards Outside Ebbing, Missouri",
-        "nonbinary_under_25": "Sam — Disclosure",
-        "nonbinary_25_40": "Elliot Page — Juno",
-        "nonbinary_over_40": "Morgaine — Chilling Adventures of Sabrina"
+        "nonbinary_under_25": "Enid Coleslaw — Ghost World",
+        "nonbinary_25_40": "Juno MacGuff — Juno",
+        "nonbinary_over_40": "Olive Kitteridge — Olive Kitteridge"
       }
     },
     "yellow": {
@@ -68,7 +68,7 @@
       "genres": [
         35,
         12,
-        10751
+        16
       ],
       "minimumRating": 6.5,
       "stretchText": "You chase warmth, wit, wonder, and the lighter side of cinema. But there’s beauty in stepping into stranger territory — Purple cinema will introduce you to ambiguity, obsession, and the uncomfortable spaces between right and wrong.",
@@ -77,21 +77,21 @@
         "female_under_25": "Mia — La La Land",
         "male_25_40": "Hiccup — How to Train Your Dragon",
         "female_25_40": "Elle Woods — Legally Blonde",
-        "male_over_40": "Saul Goodman — Better Call Saul",
-        "female_over_40": "Marigold Lexton — The Grand Budapest Hotel",
+        "male_over_40": "John Keating — Dead Poets Society",
+        "female_over_40": "Mary Poppins — Mary Poppins",
         "nonbinary_under_25": "Nakia — Black Panther",
-        "nonbinary_25_40": "Alex Danvers — Supergirl",
-        "nonbinary_over_40": "V — V for Vendetta"
+        "nonbinary_25_40": "Kimmy Schmidt — Unbreakable Kimmy Schmidt",
+        "nonbinary_over_40": "Paddington — Paddington"
       }
     },
     "orange": {
-      "archetype": "The Warmth-Seeker",
+      "archetype": "The Restless Seeker",
       "genres": [
-        35,
-        10749,
-        10751
+        28,
+        10752,
+        37
       ],
-      "minimumRating": 6.0,
+      "minimumRating": 7.0,
       "stretchText": "You like cinema that feels alive — loud, unpredictable, and slightly chaotic. But beneath all that movement is stillness waiting to be noticed. Green cinema will teach you to find stories in the ordinary.",
       "characters": {
         "male_under_25": "Alex — A Clockwork Orange",
@@ -100,9 +100,9 @@
         "female_25_40": "Marge Gunderson — Fargo",
         "male_over_40": "Rocky Balboa — Rocky",
         "female_over_40": "Frances Mayes — Under the Tuscan Sun",
-        "nonbinary_under_25": "V — V for Vendetta",
-        "nonbinary_25_40": "Nakia — Black Panther",
-        "nonbinary_over_40": "Nico Robin — One Piece"
+        "nonbinary_under_25": "Penny Lane — Almost Famous",
+        "nonbinary_25_40": "Charlotte — Lost in Translation",
+        "nonbinary_over_40": "Logan — Logan"
       }
     },
     "purple": {
@@ -110,7 +110,7 @@
       "genres": [
         14,
         878,
-        27
+        10402
       ],
       "minimumRating": 6.5,
       "stretchText": "You’re comfortable with the strange, the psychological, and the morally complicated. But don’t mistake darkness for depth. Yellow cinema will remind you that wonder, sincerity, and joy can be just as profound.",
@@ -119,30 +119,30 @@
         "female_under_25": "Violet Parr — The Incredibles",
         "male_25_40": "The Joker — The Dark Knight",
         "female_25_40": "Amy Dunne — Gone Girl",
-        "male_over_40": "Gandalf — The Lord of the Rings",
-        "female_over_40": "Morticia Addams — The Addams Family",
+        "male_over_40": "P.T. Barnum — The Greatest Showman",
+        "female_over_40": "Celie — The Color Purple",
         "nonbinary_under_25": "Morgaine — Chilling Adventures of Sabrina",
-        "nonbinary_25_40": "Ocean — Home Ocean",
-        "nonbinary_over_40": "Alex Danvers — Supergirl"
+        "nonbinary_25_40": "Loki — Loki",
+        "nonbinary_over_40": "Mystique — X-Men"
       }
     }
   },
   "activeQuestionIds": [
+    31,
     1,
+    33,
     3,
+    35,
     5,
+    36,
     7,
-    9,
-    11,
-    13,
+    37,
     15,
+    38,
     17,
+    40,
     19,
-    21,
-    23,
-    25,
-    27,
-    29
+    41
   ],
   "quizQuestions": [
     {
@@ -187,7 +187,7 @@
       "weights": {
         "red": 4,
         "blue": 3,
-        "green": 2,
+        "green": 4,
         "yellow": 1,
         "orange": 4,
         "purple": 5
@@ -317,7 +317,7 @@
       "id": 15,
       "text": "In a near-future Los Angeles, a lonely writer falls in love with an artificial intelligence designed to understand him. What begins as companionship slowly becomes something more complicated—a quiet exploration of love, loneliness, intimacy, and what it really means to be understood.",
       "weights": {
-        "red": 2,
+        "red": 4,
         "blue": 5,
         "green": 3,
         "yellow": 2,
@@ -332,7 +332,7 @@
         "red": 5,
         "blue": 2,
         "green": 1,
-        "yellow": 2,
+        "yellow": 4,
         "orange": 4,
         "purple": 3
       }
@@ -380,7 +380,7 @@
         "red": 5,
         "blue": 4,
         "green": 1,
-        "yellow": 1,
+        "yellow": 4,
         "orange": 3,
         "purple": 5
       }
@@ -399,7 +399,7 @@
     },
     {
       "id": 22,
-      "text": "Paul Atreides is drawn into a struggle for control of Arrakis, the desert planet that holds the most valuable resource in the universe. As his family is pulled into a deadly political conflict, Paul must confront power, destiny, and the terrifying possibility of becoming the person others believe he is meant to be..",
+      "text": "Paul Atreides is drawn into a struggle for control of Arrakis, the desert planet that holds the most valuable resource in the universe. As his family is pulled into a deadly political conflict, Paul must confront power, destiny, and the terrifying possibility of becoming the person others believe he is meant to be.",
       "weights": {
         "red": 4,
         "blue": 3,
@@ -441,7 +441,7 @@
         "blue": 5,
         "green": 3,
         "yellow": 2,
-        "orange": 2,
+        "orange": 4,
         "purple": 4
       }
     },
@@ -454,7 +454,7 @@
         "green": 2,
         "yellow": 5,
         "orange": 4,
-        "purple": 3
+        "purple": 4
       }
     },
     {
@@ -478,7 +478,7 @@
         "green": 2,
         "yellow": 5,
         "orange": 4,
-        "purple": 2
+        "purple": 4
       }
     },
     {
@@ -490,7 +490,7 @@
         "green": 2,
         "yellow": 4,
         "orange": 5,
-        "purple": 3
+        "purple": 4
       }
     },
     {
@@ -504,6 +504,288 @@
         "orange": 3,
         "purple": 5
       }
+    },
+    {
+      "id": 31,
+      "text": "I would rather feel something intensely for one night than feel comfortable for a whole year.",
+      "weights": {
+        "red": 5,
+        "blue": 2,
+        "green": 1,
+        "yellow": 3,
+        "orange": 4,
+        "purple": 3
+      }
+    },
+    {
+      "id": 32,
+      "text": "I replay old conversations and moments long after they're over, searching for what they really meant.",
+      "weights": {
+        "red": 2,
+        "blue": 5,
+        "green": 3,
+        "yellow": 1,
+        "orange": 2,
+        "purple": 4
+      }
+    },
+    {
+      "id": 33,
+      "text": "In any room, I notice who holds the power and how everyone else quietly adjusts around them.",
+      "weights": {
+        "red": 2,
+        "blue": 2,
+        "green": 5,
+        "yellow": 2,
+        "orange": 4,
+        "purple": 1
+      }
+    },
+    {
+      "id": 34,
+      "text": "I would rather be the odd one out than blend in, as long as I'm being sincerely myself.",
+      "weights": {
+        "red": 3,
+        "blue": 2,
+        "green": 1,
+        "yellow": 5,
+        "orange": 3,
+        "purple": 4
+      }
+    },
+    {
+      "id": 35,
+      "text": "I want to build something so big, or so good, that it outlasts me, even if it costs me comfort.",
+      "weights": {
+        "red": 3,
+        "blue": 1,
+        "green": 2,
+        "yellow": 3,
+        "orange": 5,
+        "purple": 3
+      }
+    },
+    {
+      "id": 36,
+      "text": "I spend a lot of my time inside my own imagination: daydreams, invented worlds, endless what-ifs.",
+      "weights": {
+        "red": 2,
+        "blue": 4,
+        "green": 1,
+        "yellow": 3,
+        "orange": 2,
+        "purple": 5
+      }
+    },
+    {
+      "id": 37,
+      "text": "When something moves me, I can't keep it to myself. I have to dance, argue, cry, or tell someone right now.",
+      "weights": {
+        "red": 5,
+        "blue": 1,
+        "green": 1,
+        "yellow": 4,
+        "orange": 3,
+        "purple": 3
+      }
+    },
+    {
+      "id": 38,
+      "text": "I sometimes feel like I'm watching my own life from a distance, like a scene I'm also standing in.",
+      "weights": {
+        "red": 1,
+        "blue": 5,
+        "green": 4,
+        "yellow": 2,
+        "orange": 2,
+        "purple": 4
+      }
+    },
+    {
+      "id": 39,
+      "text": "I would rather quietly work out how something really works than be told it's amazing.",
+      "weights": {
+        "red": 1,
+        "blue": 3,
+        "green": 5,
+        "yellow": 2,
+        "orange": 3,
+        "purple": 2
+      }
+    },
+    {
+      "id": 40,
+      "text": "I use humor, even dark humor, to get through the things that scare me.",
+      "weights": {
+        "red": 3,
+        "blue": 2,
+        "green": 3,
+        "yellow": 5,
+        "orange": 2,
+        "purple": 3
+      }
+    },
+    {
+      "id": 41,
+      "text": "I get restless when I'm not chasing something: a goal, a place, a version of myself I haven't become yet.",
+      "weights": {
+        "red": 4,
+        "blue": 3,
+        "green": 1,
+        "yellow": 2,
+        "orange": 5,
+        "purple": 3
+      }
+    },
+    {
+      "id": 42,
+      "text": "There is a side of me most people never see, and I'm not sure I want them to.",
+      "weights": {
+        "red": 2,
+        "blue": 4,
+        "green": 2,
+        "yellow": 1,
+        "orange": 2,
+        "purple": 5
+      }
     }
+  ],
+  "questionSets": [
+    [
+      31,
+      1,
+      33,
+      3,
+      35,
+      5,
+      36,
+      7,
+      37,
+      15,
+      38,
+      17,
+      40,
+      19,
+      41
+    ],
+    [
+      32,
+      1,
+      33,
+      2,
+      34,
+      10,
+      37,
+      16,
+      39,
+      21,
+      40,
+      27,
+      41,
+      29,
+      42
+    ],
+    [
+      31,
+      3,
+      32,
+      11,
+      34,
+      13,
+      35,
+      14,
+      36,
+      17,
+      38,
+      19,
+      39,
+      21,
+      42
+    ],
+    [
+      31,
+      4,
+      32,
+      7,
+      33,
+      8,
+      35,
+      15,
+      37,
+      18,
+      38,
+      20,
+      39,
+      22,
+      40
+    ],
+    [
+      33,
+      1,
+      34,
+      2,
+      36,
+      10,
+      37,
+      11,
+      39,
+      14,
+      40,
+      30,
+      41,
+      25,
+      42
+    ],
+    [
+      31,
+      12,
+      32,
+      6,
+      33,
+      9,
+      34,
+      16,
+      35,
+      17,
+      38,
+      18,
+      41,
+      21,
+      42
+    ],
+    [
+      31,
+      5,
+      32,
+      13,
+      33,
+      19,
+      36,
+      23,
+      37,
+      26,
+      38,
+      28,
+      39,
+      29,
+      40
+    ],
+    [
+      34,
+      1,
+      35,
+      2,
+      36,
+      4,
+      37,
+      7,
+      39,
+      24,
+      40,
+      26,
+      41,
+      27,
+      42
+    ]
   ]
 }
