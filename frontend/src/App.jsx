@@ -200,12 +200,17 @@ const ageKeys = { under25: 'under_25', '25to40': '25_40', over40: 'over_40' }
 const sexKeys = { male: 'male', female: 'female', nonbinary: 'nonbinary' }
 
 function shuffledQuestions() {
-  const order = [...quizPool]
-  for (let index = order.length - 1; index > 0; index -= 1) {
-    const swap = Math.floor(Math.random() * (index + 1))
-    ;[order[index], order[swap]] = [order[swap], order[index]]
+  const shuffle = (questions) => {
+    const order = [...questions]
+    for (let index = order.length - 1; index > 0; index -= 1) {
+      const swap = Math.floor(Math.random() * (index + 1))
+      ;[order[index], order[swap]] = [order[swap], order[index]]
+    }
+    return order
   }
-  return order
+  const personalityQuestions = quizPool.filter((question) => question.id > 30)
+  const filmQuestions = quizPool.filter((question) => question.id <= 30)
+  return [...shuffle(personalityQuestions), ...shuffle(filmQuestions)]
 }
 
 function getResult(answers, questions) {
@@ -363,13 +368,21 @@ function App() {
     setAnswers(nextAnswers)
 
     if (nextAnswers.length < sessionQuestions.length) {
-      setQuestionIndex((current) => current + 1)
+      const token = runToken.current
+      window.setTimeout(() => {
+        if (token === runToken.current) setQuestionIndex((current) => current + 1)
+      }, 150)
       return
     }
 
+    // Let the selected option's press animation register before the final
+    // loading state replaces the question.
     submitting.current = true
-    setIsCalculating(true)
     const token = runToken.current
+    await new Promise((resolve) => window.setTimeout(resolve, 150))
+    if (token !== runToken.current) return
+
+    setIsCalculating(true)
 
     await new Promise((resolve) => window.setTimeout(resolve, 650))
     if (token !== runToken.current) return
@@ -379,7 +392,9 @@ function App() {
 
     if (apiUrl) {
       try {
-        const response = await fetch(`${apiUrl}/api/quiz/submit`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ answers: nextAnswers, age, sex }) })
+        const answersById = new Map(sessionQuestions.map((question, index) => [question.id, nextAnswers[index]]))
+        const orderedAnswers = quizPool.map((question) => answersById.get(question.id))
+        const response = await fetch(`${apiUrl}/api/quiz/submit`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ answers: orderedAnswers, age, sex }) })
         if (!response.ok) throw new Error('Quiz service returned an error')
         const parsed = sanitizeResultData(await response.json())
         if (!parsed) throw new Error('Unexpected response shape')
@@ -457,6 +472,13 @@ function App() {
               question={sessionQuestions[questionIndex]}
               index={questionIndex}
               total={sessionQuestions.length}
+              section={sessionQuestions[questionIndex]?.id > 30 ? 'Personality' : 'Film'}
+              sectionIndex={sessionQuestions[questionIndex]?.id > 30
+                ? questionIndex
+                : questionIndex - sessionQuestions.filter((question) => question.id > 30).length}
+              sectionTotal={sessionQuestions.filter((question) =>
+                sessionQuestions[questionIndex]?.id > 30 ? question.id > 30 : question.id <= 30
+              ).length}
               onAnswer={answerQuestion}
               isCalculating={isCalculating}
               moveFocus={keyboardMode && questionIndex > 0}
@@ -580,9 +602,8 @@ function Intro({ age, sex, setAge, setSex, onBack, onStart, error, setError }) {
   )
 }
 
-function Quiz({ question, index, total, onAnswer, isCalculating, moveFocus }) {
+function Quiz({ question, index, total, section, sectionIndex, sectionTotal, onAnswer, isCalculating, moveFocus }) {
   const progress = ((index + 1) / total) * 100
-  const number = String(index + 1).padStart(2, '0')
   const firstOption = React.useRef(null)
   const calculating = React.useRef(null)
 
@@ -621,20 +642,24 @@ function Quiz({ question, index, total, onAnswer, isCalculating, moveFocus }) {
               aria-label={`Question ${index + 1} of ${total}`}
             />
             <p className="quiz__count">
-              <b>{number}</b>
-              <span>/ {total}</span>
+              <b>{section} quiz</b>
+              <span>{String(sectionIndex + 1).padStart(2, '0')} / {sectionTotal}</span>
             </p>
             {/* The counter alone leaves touch and screen-reader users who never
                 take focus with no idea what changed, so the question rides along. */}
             <p className="sr-only" role="status" aria-live="polite">
-              Question {index + 1} of {total}. {question?.text}
+              {section} question {sectionIndex + 1} of {sectionTotal}. Overall question {index + 1} of {total}. {question?.text}
             </p>
 
-            <p className="label quiz__kicker">A movie you spot on the shelf&hellip;</p>
+            <p className="label quiz__kicker">
+              {section === 'Personality' ? 'A little about how you see the world…' : 'A movie you spot on the shelf…'}
+            </p>
             <h1 className="quiz__title" id="question-title">
               {question.text}
             </h1>
-            <p className="quiz__prompt">Would you watch it?</p>
+            <p className="quiz__prompt">
+              {section === 'Personality' ? 'How much does this sound like you?' : 'Would you watch it?'}
+            </p>
 
             <fieldset className="answer-grid">
               <legend className="sr-only">How much does this sound like you?</legend>
@@ -716,7 +741,7 @@ function Results({ result, error, onRestart }) {
         >
           {character.film ? (
             <p className="slip__body-text">
-              You watch films the way <em>{character.name}</em> does in{' '}
+              Your character archetype would be <em>{character.name}</em> from{' '}
               <em>{character.film}</em>.
             </p>
           ) : (

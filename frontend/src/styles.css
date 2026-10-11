@@ -773,7 +773,7 @@ main {
 }
 
 .answer:active {
-  transform: scale(0.99);
+  transform: scale(0.965);
 }
 
 .answer__dot {
