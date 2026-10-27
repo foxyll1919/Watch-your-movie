@@ -1,6 +1,7 @@
 import asyncio
 import json
 import os
+import math
 from datetime import date
 from pathlib import Path
 from typing import Literal
@@ -18,6 +19,7 @@ with CONFIG_PATH.open(encoding="utf-8") as config_file:
     CONFIG = json.load(config_file)
 
 TMDB_BASE = "https://api.themoviedb.org/3"
+TMDB_API_KEY = os.getenv("TMDB_API_KEY")
 # Discover ANDs `with_genres` once the vote filters are in play, so a
 # three-genre profile collapses to a handful of films. One request per genre,
 # merged afterwards, keeps the shelves full.
@@ -79,17 +81,58 @@ def character_for(submission: QuizSubmission, color: str) -> str | None:
     return CONFIG["colorProfiles"][color]["characters"].get(f"{submission.sex}_{age_key}")
 
 
-def format_movie(movie: dict) -> dict:
+def format_movie(movie):
     return {
-        "id": movie["id"],
-        "title": movie["title"],
-        # Raw TMDB path, e.g. "/abc123.jpg". The client picks its own width per
-        # surface, so the size never has to round-trip through this response.
+        "id": movie.get("id"),
+        "title": movie.get("title"),
         "poster_path": movie.get("poster_path"),
         "release_date": movie.get("release_date"),
         "vote_average": movie.get("vote_average"),
-        "overview": movie.get("overview", ""),
+        "overview": movie.get("overview"),
     }
+
+def build_genre_affinity(totals, color_profiles):
+    colors = list(color_profiles.keys())
+
+    # Convert the quiz scores into relative color strengths.
+    minimum_score = min(
+        (float(totals.get(color, 0)) for color in colors),
+        default=0.0,
+    )
+
+    strengths = {
+        color: max(
+            float(totals.get(color, 0)) - minimum_score,
+            0.0,
+        ) + 0.01
+        for color in colors
+    }
+
+    total_strength = sum(strengths.values())
+
+    color_affinity = {
+        color: strength / total_strength
+        for color, strength in strengths.items()
+    }
+
+    # Distribute each color's affinity across its genres.
+    genre_affinity = {}
+
+    for color, profile in color_profiles.items():
+        genres = profile.get("genres", [])
+
+        if not genres:
+            continue
+
+        genre_weight = color_affinity[color] / len(genres)
+
+        for genre_id in genres:
+            genre_affinity[genre_id] = (
+                genre_affinity.get(genre_id, 0.0)
+                + genre_weight
+            )
+
+    return color_affinity, genre_affinity
 
 
 async def discover_by_genre(client: httpx.AsyncClient, genre: int, minimum_rating: float) -> list[dict]:
@@ -109,41 +152,174 @@ async def discover_by_genre(client: httpx.AsyncClient, genre: int, minimum_ratin
     return response.json().get("results", [])
 
 
-async def fetch_movies(client: httpx.AsyncClient, genres: list[int], minimum_rating: float, limit: int) -> list[dict]:
-    api_key = os.getenv("TMDB_API_KEY")
-    if not api_key:
+async def fetch_movies(
+    client,
+    genres,
+    minimum_rating,
+    limit,
+    genre_affinity=None,
+):
+    if not TMDB_API_KEY or not genres:
         return []
-    pages = await asyncio.gather(
-        *(discover_by_genre(client, genre, minimum_rating) for genre in genres),
+
+    # Remove duplicate genre IDs while preserving order.
+    genres = list(dict.fromkeys(genres))
+
+    # Fetch movies for each genre.
+    results = await asyncio.gather(
+        *[
+            discover_by_genre(client, genre, minimum_rating)
+            for genre in genres
+        ],
         return_exceptions=True,
     )
-    merged: dict[int, dict] = {}
-    for page in pages:
-        if isinstance(page, BaseException):
+
+    # Merge results and remove duplicate movies.
+    movies_by_id = {}
+
+    for result in results:
+        if isinstance(result, Exception):
             continue
-        for movie in page:
-            merged.setdefault(movie["id"], movie)
-    ranked = sorted(merged.values(), key=lambda movie: movie.get("popularity", 0), reverse=True)
-    return [format_movie(movie) for movie in ranked[:limit]]
 
+        for movie in result:
+            movie_id = movie.get("id")
 
-async def recommendations_for(main_color: str, contrast_color: str) -> tuple[list[dict], list[dict]]:
-    api_key = os.getenv("TMDB_API_KEY")
-    if not api_key:
-        return [], []
-    main_profile = CONFIG["colorProfiles"][main_color]
-    contrast_profile = CONFIG["colorProfiles"][contrast_color]
-    async with httpx.AsyncClient(timeout=10) as client:
-        main_movies, contrast_movies = await asyncio.gather(
-            fetch_movies(client, main_profile["genres"], main_profile["minimumRating"], 12),
-            fetch_movies(client, contrast_profile["genres"], contrast_profile["minimumRating"], 4),
+            if movie_id is not None:
+                movies_by_id[movie_id] = movie
+
+    movies = list(movies_by_id.values())
+
+    if not movies:
+        return []
+
+    # Rank candidates using genre relevance, rating, and popularity.
+    def rank_movie(movie):
+        movie_genres = set(movie.get("genre_ids", []))
+
+        if genre_affinity:
+            genre_score = sum(
+                genre_affinity.get(genre_id, 0.0)
+                for genre_id in movie_genres
+            )
+        else:
+            # Preserve sensible behavior for existing callers.
+            genre_score = (
+                len(movie_genres.intersection(genres))
+                / max(len(genres), 1)
+            )
+
+        rating = float(movie.get("vote_average") or 0)
+        popularity = float(movie.get("popularity") or 0)
+
+        popularity_score = min(
+            math.log1p(max(popularity, 0)) / 10,
+            1.0,
         )
-    return main_movies, contrast_movies
+
+        return (
+            0.65 * genre_score
+            + 0.30 * (rating / 10)
+            + 0.05 * popularity_score
+        )
+
+    movies.sort(key=rank_movie, reverse=True)
+
+    return [
+        format_movie(movie)
+        for movie in movies[:limit]
+    ]
+
+
+async def recommendations_for(
+    main_color,
+    contrast_color,
+    totals=None,
+):
+    color_profiles = CONFIG["colorProfiles"]
+
+    main_profile = color_profiles[main_color]
+    contrast_profile = color_profiles[contrast_color]
+
+    totals = totals or {
+        color: 1 if color in (main_color, contrast_color) else 0
+        for color in color_profiles
+    }
+
+    color_affinity, genre_affinity = build_genre_affinity(
+        totals,
+        color_profiles,
+    )
+
+    # Use the three strongest colors to broaden the candidate pool.
+    top_colors = sorted(
+        color_affinity,
+        key=color_affinity.get,
+        reverse=True,
+    )[:3]
+
+    candidate_genres = list(dict.fromkeys(
+        genre
+        for color in top_colors
+        for genre in color_profiles[color].get("genres", [])
+    ))
+
+    minimum_rating = min(
+        color_profiles[color].get("minimumRating", 0)
+        for color in top_colors
+    )
+
+    # Build a separate ranking for the contrast shelf.
+    contrast_genre_affinity = {}
+
+    contrast_genres = contrast_profile.get("genres", [])
+
+    for genre_id in contrast_genres:
+        contrast_genre_affinity[genre_id] = 1 / max(
+            len(contrast_genres),
+            1,
+        )
+
+    async with httpx.AsyncClient(timeout=20.0) as client:
+        main_movies = await fetch_movies(
+            client=client,
+            genres=candidate_genres,
+            minimum_rating=minimum_rating,
+            limit=12,
+            genre_affinity=genre_affinity,
+        )
+
+        contrast_movies = await fetch_movies(
+            client=client,
+            genres=contrast_genres,
+            minimum_rating=contrast_profile.get(
+                "minimumRating",
+                0,
+            ),
+            limit=4,
+            genre_affinity=contrast_genre_affinity,
+        )
+
+    # Avoid showing the same movies in both shelves.
+    main_ids = {
+        movie["id"]
+        for movie in main_movies
+    }
+
+    contrast_movies = [
+        movie
+        for movie in contrast_movies
+        if movie["id"] not in main_ids
+    ]
+
+    return {
+        "main_movies": main_movies,
+        "contrast_movies": contrast_movies,
+    }
 
 
 @app.get("/api/health")
 async def health() -> dict[str, object]:
-    return {"status": "ok", "questions": QUESTION_COUNT, "tmdb_key": bool(os.getenv("TMDB_API_KEY"))}
+    return {"status": "ok", "questions": QUESTION_COUNT, "tmdb_key": bool(TMDB_API_KEY)}
 
 
 @app.post("/api/quiz/submit")
@@ -153,8 +329,9 @@ async def submit_quiz(submission: QuizSubmission) -> dict:
     totals = score_answers(submission.answers)
     ranking = sorted(totals, key=totals.get, reverse=True)
     main_color, contrast_color = ranking[:2]
-    main_movies, contrast_movies = await recommendations_for(main_color, contrast_color)
+    recommendations = await recommendations_for(main_color, contrast_color, totals)
+    main_movies = recommendations["main_movies"]
+    contrast_movies = recommendations["contrast_movies"]
     main_profile = CONFIG["colorProfiles"][main_color]
     contrast_profile = CONFIG["colorProfiles"][contrast_color]
     return {"main_color": main_color, "contrast_color": contrast_color, "scores": totals, "archetype": main_profile["archetype"], "character_match": character_for(submission, main_color), "stretch_text": main_profile["stretchText"], "main_genres": main_profile["genres"], "contrast_genres": contrast_profile["genres"], "main_movies": main_movies, "contrast_movies": contrast_movies}
-
