@@ -807,7 +807,7 @@ main {
   border-color: var(--ink);
   background: var(--ink);
   color: var(--card-cream);
-  animation: answer-picked 420ms var(--ease-out);
+  animation: answer-picked 220ms var(--ease-out);
 }
 
 /* The tap lands before the advance: a short press-in plus a ring that fades
@@ -831,7 +831,7 @@ main {
   border: 1px solid var(--ink);
   border-radius: inherit;
   pointer-events: none;
-  animation: answer-ring 520ms var(--ease-out) forwards;
+  animation: answer-ring 260ms var(--ease-out) forwards;
 }
 
 @keyframes answer-ring {
@@ -1237,11 +1237,14 @@ main {
   inset-block-start: 50%;
   inset-inline-start: 50%;
   translate: -50% -50%;
-  inline-size: 10px;
+  /* Fixed box, scaled between 10px and 24px. A transform stays on the
+     compositor; animating `inline-size` relayouts the dot every frame. */
+  inline-size: 24px;
   block-size: 10px;
   border-radius: var(--radius-pill);
   background: var(--warm-gray);
-  transition: inline-size var(--dur) var(--ease-out), background-color var(--dur) var(--ease-out);
+  transform: scaleX(0.417);
+  transition: transform var(--dur) var(--ease-out), background-color var(--dur) var(--ease-out);
 }
 
 .deck__dot:hover::after {
@@ -1249,7 +1252,7 @@ main {
 }
 
 .deck__dot[aria-current="true"]::after {
-  inline-size: 24px;
+  transform: scaleX(1);
   background: var(--ink);
 }
 

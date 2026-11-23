@@ -1,5 +1,14 @@
 import React from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { Share2, Check, Link2 } from "lucide-react";
+
+/* The confirmation icon arrives with a scale + opacity crossfade rather than a
+   hard swap. Blur is deliberately omitted: the decision sheet limits motion to
+   transform/opacity. Reduced motion keeps the opacity change and drops travel. */
+const iconSwap = {
+  duration: 0.18,
+  ease: [0.22, 0.61, 0.36, 1],
+};
 
 /**
  * Share control with a graceful ladder: native share sheet, then clipboard copy,
@@ -14,6 +23,8 @@ export function ShareButton({
 }) {
   const [status, setStatus] = React.useState("");
   const timer = React.useRef(null);
+  const reduceMotion = useReducedMotion();
+  const confirmed = status === "Link copied" || status === "Shared";
 
   React.useEffect(() => () => window.clearTimeout(timer.current), []);
 
@@ -54,7 +65,19 @@ export function ShareButton({
         onClick={onShare}
         aria-label={showLabel ? undefined : label}
       >
-        {status === "Link copied" || status === "Shared" ? <Check aria-hidden="true" /> : <Share2 aria-hidden="true" />}
+        {confirmed ? (
+          <motion.span
+            key="check"
+            initial={reduceMotion ? false : { opacity: 0, scale: 0.6 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={iconSwap}
+            style={{ display: "inline-flex" }}
+          >
+            <Check aria-hidden="true" />
+          </motion.span>
+        ) : (
+          <Share2 aria-hidden="true" />
+        )}
         {showLabel && <span>{label}</span>}
       </button>
       <span className="sr-only" role="status" aria-live="polite">
@@ -72,6 +95,8 @@ export function ShareButton({
 export function CopyLinkButton({ label = "Copy your result link", className = "" }) {
   const [status, setStatus] = React.useState(label);
   const timer = React.useRef(null);
+  const reduceMotion = useReducedMotion();
+  const confirmed = status === "Link copied";
 
   React.useEffect(() => () => window.clearTimeout(timer.current), []);
 
@@ -88,7 +113,19 @@ export function CopyLinkButton({ label = "Copy your result link", className = ""
 
   return (
     <button type="button" className={`btn btn--outline ${className}`.trim()} onClick={onCopy}>
-      {status === "Link copied" ? <Check aria-hidden="true" /> : <Link2 aria-hidden="true" />}
+      {confirmed ? (
+        <motion.span
+          key="check"
+          initial={reduceMotion ? false : { opacity: 0, scale: 0.6 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={iconSwap}
+          style={{ display: "inline-flex" }}
+        >
+          <Check aria-hidden="true" />
+        </motion.span>
+      ) : (
+        <Link2 aria-hidden="true" />
+      )}
       <span role="status">{status}</span>
     </button>
   );

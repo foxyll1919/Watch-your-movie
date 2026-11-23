@@ -163,7 +163,9 @@ const Carousel_002 = ({
     <motion.div
       initial={reduceMotion ? false : { opacity: 0, translateY: 12 }}
       animate={{ opacity: 1, translateY: 0 }}
-      transition={{ duration: 0.24, delay: 0.1 }}
+      /* Explicit ease matches the stylesheet's --ease-out token, so the deck
+         settles with the same curve as every other entrance. */
+      transition={{ duration: 0.24, delay: 0.1, ease: [0.22, 0.61, 0.36, 1] }}
       className={cn("skiper__frame", className)}
     >
       <Swiper
